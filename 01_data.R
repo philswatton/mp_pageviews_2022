@@ -19,8 +19,8 @@ library(legislatoR)
 uk_core <- get_core("gbr")
 uk_political <- get_political("gbr")
 mps <- left_join(uk_core, uk_political, by=c("pageid"="pageid")) %>%
-  filter(session_start == "2019-12-12")
-
+  filter(session_start == "2019-12-12") %>%
+  select(name, wikititle, sex, ethnicity, religion, party, constituency)
 
 
 
@@ -61,8 +61,27 @@ saveRDS(views, "data/views.rds")
 
 # Construct datasets ----
 
+# Relevant variables
+views_sub <- views %>%
+  select(article, timestamp, views)
+
 # TSCS
+mps_tscs <- left_join(mps, views_sub, by=c("wikititle"="article")) %>%
+  rename(date = timestamp) %>%
+  mutate(date = ymd(str_sub(date, 1, 8)),
+         party2 = case_when(party == "Labour and Co-operative" ~ "Labour Party",
+                            T ~ party))
 
+# Aggregated
+mps_total <- mps_tscs %>%
+  group_by(name) %>%
+  mutate(views = sum(views)) %>%
+  ungroup() %>%
+  select(-date) %>%
+  filter(!duplicated(.))
 
+# Save
+saveRDS(mps_tscs, "data/mps_tscs.rds")
+saveRDS(mps_total, "data/mps_total.rds")
 
 
