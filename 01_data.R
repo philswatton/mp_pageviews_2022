@@ -33,7 +33,7 @@ wiki_api <- function(title) {
   # Construct api query
   query <- str_c("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/",
                  title,
-                 "/daily/2022010100/2022042200")
+                 "/daily/2022010100/2022042300")
 
   # GET request
   response <- GET(query)
