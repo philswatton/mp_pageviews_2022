@@ -19,7 +19,7 @@ color <- data.frame(party2 = c("Conservative", "Labour", "SNP", "Lib Dems",
                               "#215F55", "#006E51", "#247F3F", "#F4C72E"))
 df <- left_join(mps, color) %>% arrange(views)
 df$name2 <- df$name
-df$name2[1:630] <- str_c(df$name2[1:630], str_c(rep("z",1000), collapse=""))# hacky trick to get treemap only to print labels for the top 20
+df$name2[1:600] <- str_c(df$name2[1:600], str_c(rep("z",1000), collapse=""))# hacky trick to get treemap only to print labels for the top 20
 
 
 
@@ -34,15 +34,17 @@ treemap(df,
         vColor="color",
 
         border.col="#FFFFFF",
-        border.lwds=c(4,2),
+        border.lwds=c(16,6),
 
         title="UK MP Wikipedia Page Views by Party",
-        fontsize.title=100,
+        fontsize.title=120,
 
         fontcolor.labels=c("#000000","#FFFFFF"),
-        fontsize.labels=c(120,100),
+        fontsize.labels=c(0,10),
+        inflate.labels=T,
+        fontface.labels="plain",
         bg.labels="#FFFFFF",
-        overlap.labels=0,
-        lowerbound.cex.labels=0.5,
-        align.labels=list(c("center","center"),c("left","top")))
+        lowerbound.cex.labels=1,
+        align.labels=c("center","center"))
 dev.off()
+
