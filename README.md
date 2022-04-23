@@ -1,6 +1,6 @@
 # MP Pageviews 2022
 
-This is the repository for the MP's page views blog post on my website. You can read the blog post [at this link](https://philswatton.github.io//2022/04/24/mp-pageviews.html).
+This is the repository for the MP's page views blog post on my website. You can read the blog post [at this link](https://philswatton.github.io/2022/04/24/mp-pageviews.html).
 
 ## Scripts
 
