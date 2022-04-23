@@ -17,7 +17,9 @@ color <- data.frame(party2 = c("Conservative", "Labour", "SNP", "Liberal Democra
                     color = c("#00aeef", "#e4003b", "#FFF481", "#fbb347",
                               "#000000", "#19283E", "#6ab023",
                               "#215F55", "#006E51", "#247F3F", "#F4C72E"))
-df <- left_join(mps_total, color)
+df <- left_join(mps, color)
+
+
 
 
 # Treemap ----
@@ -27,5 +29,10 @@ treemap(df,
         type="color",
         vColor="color",
         border.col="#FFFFFF",
+
+        title="UK MP Wikipedia Page Views by Party",
+
+        fontcolor.labels=c("#000000","#FFFFFF"),
         bg.labels="#FFFFFF",
-        overlap.labels=0)
+        # overlap.labels=0,
+        align.labels=list(c("center","center"),c("left","top")))
