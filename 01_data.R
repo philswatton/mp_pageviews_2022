@@ -72,9 +72,10 @@ mps_tscs <- left_join(mps, views_sub, by=c("wikititle"="article")) %>%
   mutate(date = ymd(str_sub(date, 1, 8)),
          party2 = case_when(party == "Conservative Party" ~ "Conservative",
                             party %in% c("Labour Party", "Labour and Co-operative") ~ "Labour",
+                            party == "Scottish National" ~ "SNP",
                             party == "Democratic Unionist Party" ~ "DUP",
                             party == "Green Party of England and Wales" ~ "Green",
-                            party == "Scottish National" ~ "SNP",
+                            party == "Plaid Cymru" ~ "Plaid",
                             party == "Social Democratic and Labour Party" ~ "SDLP",
                             T ~ party))
 
