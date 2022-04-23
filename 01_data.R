@@ -40,7 +40,7 @@ wiki_api <- function(title) {
 
   # Convert output to dataframe
   out <- rawToChar(response$content) %>%
-    fromJSON(json) %>%
+    fromJSON() %>%
     `[[`("items")
 
   # Sleep
@@ -70,7 +70,12 @@ views_sub <- views %>%
 mps_tscs <- left_join(mps, views_sub, by=c("wikititle"="article")) %>%
   rename(date = timestamp) %>%
   mutate(date = ymd(str_sub(date, 1, 8)),
-         party2 = case_when(party == "Labour and Co-operative" ~ "Labour Party",
+         party2 = case_when(party == "Conservative Party" ~ "Conservative",
+                            party %in% c("Labour Party", "Labour and Co-operative") ~ "Labour",
+                            party == "Democratic Unionist Party" ~ "DUP",
+                            party == "Green Party of England and Wales" ~ "Green",
+                            party == "Scottish National" ~ "SNP",
+                            party == "Social Democratic and Labour Party" ~ "SDLP",
                             T ~ party))
 
 # Aggregated
