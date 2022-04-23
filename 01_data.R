@@ -39,8 +39,9 @@ wiki_api <- function(title) {
   response <- GET(query)
 
   # Convert output to dataframe
-  json <- rawToChar(response$content)
-  out <- fromJSON(json) %>% `[[`("items")
+  out <- rawToChar(response$content) %>%
+    fromJSON(json) %>%
+    `[[`("items")
 
   # Sleep
   Sys.sleep(10)
@@ -75,7 +76,7 @@ mps_tscs <- left_join(mps, views_sub, by=c("wikititle"="article")) %>%
 # Aggregated
 mps_total <- mps_tscs %>%
   group_by(name) %>%
-  mutate(views = sum(views)) %>%
+  mutate(views = sum(views, na.rm=T)) %>%
   ungroup() %>%
   select(-date) %>%
   filter(!duplicated(.))
